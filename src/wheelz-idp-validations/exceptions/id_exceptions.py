@@ -1,4 +1,4 @@
-from src.sanitize_exception import SanitizeException
+from ..sanitize_exception import SanitizeException
 
 
 class InvalidIDException(SanitizeException):
