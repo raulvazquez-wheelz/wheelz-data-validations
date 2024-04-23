@@ -1,4 +1,4 @@
-from ..sanitize_exception import SanitizeException
+from src.sanitize_exception import SanitizeException
 
 
 class InvalidFullNameException(SanitizeException):
