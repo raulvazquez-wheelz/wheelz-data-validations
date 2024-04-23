@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wheelz-idp-validations"
+version = "0.0.1"
+authors = [
+  { name="Lluis" },
+]
+description = "Validation for spasnish documents"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/albertvazquezm/wheelz-idp-validations"
+Issues = "https://github.com/albertvazquezm/wheelz-idp-validationsissues"
