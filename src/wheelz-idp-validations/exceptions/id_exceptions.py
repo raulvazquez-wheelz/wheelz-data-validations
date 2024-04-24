@@ -20,3 +20,10 @@ class IDValidationFailedException(SanitizeException):
         self.message = ('The module of the given ID with 23 does not correspond with the letter it should have - '
                         'ID Found: ' + found_id)
         super().__init__(self.message)
+
+
+class NoValidIDFoundInMultipleSearchException(SanitizeException):
+    def __init__(self, text):
+        self.message = ('There is no valid ID in this text - '
+                        'Text: ' + text)
+        super().__init__(self.message)
