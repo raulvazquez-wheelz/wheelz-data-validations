@@ -1,1 +1,1 @@
-Fields validator for wheelz-idp project
+Fields validator for Wheelz-IDP project
