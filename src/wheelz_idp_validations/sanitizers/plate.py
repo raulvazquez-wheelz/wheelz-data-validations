@@ -1,4 +1,8 @@
 import re
+import logging
+
+# Configurar logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def sanitize_plate(text):
     # Definir patrones para los diferentes tipos de matrículas
@@ -11,12 +15,17 @@ def sanitize_plate(text):
         r'\bC\d{4}[A-Z]{3}\b',                   # Tipo 6: Una C, 4 números y 3 letras
     ]
 
+    # Comprobar si la entrada es una cadena vacía o solo contiene espacios
+    if not text.strip():
+        logging.info(f"Empty input received for plate processing: '{text}'")
+        return ""  # Retornar cadena vacía directamente si no hay entrada
+
     # Buscar la primera matrícula que coincida con alguno de los patrones
     for pattern in patterns:
         match = re.search(pattern, text.upper().replace(' ', ''))
         if match:
             return match.group(0)
-
-    # Si no se encuentra ninguna matrícula, lanzar excepción
-    raise InvalidPlateException("No valid plate found in the text")
-
+    
+    # Registra que no se encontró una matrícula válida, incluyendo el texto original
+    logging.warning(f"No valid plate found in text: '{text}'")
+    return ""  # Retornar cadena vacía si no se encuentra matrícula
