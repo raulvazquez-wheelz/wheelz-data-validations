@@ -1,7 +1,7 @@
-from sanitizers.id_number import sanitize_id_number
-from sanitizers.gender import sanitize_gender
-from sanitizers.full_name import sanitize_fullname
-from sanitizers.date import sanitize_dates
+from .sanitizers.id_number import sanitize_id_number
+from .sanitizers.gender import sanitize_gender
+from .sanitizers.full_name import sanitize_fullname
+from .sanitizers.date import sanitize_dates
 
 
 def sanitize_id(response_dict):
