@@ -1,6 +1,6 @@
-from sanitizers.plate import sanitize_plate
-from sanitizers.vin import sanitize_vin
-from sanitizers.date import sanitize_dates
+from wheelz_idp_validations.sanitizers.plate import sanitize_plate
+from wheelz_idp_validations.sanitizers.vin import sanitize_vin
+from wheelz_idp_validations.sanitizers.date import sanitize_dates
 
 
 def sanitize_pcv2(response_dict):
