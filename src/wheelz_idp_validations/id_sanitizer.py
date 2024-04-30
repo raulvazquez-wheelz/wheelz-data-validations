@@ -13,6 +13,16 @@ def sanitize_id(response_dict):
     else:
         print("Warning: 'documentNumber' has not been validated because not found in the response dictionary.")
 
+    # Sanitize MRZ to extract DNI
+    if "mrz" in response_dict:
+        try: 
+            response_dict["documentNumber"] = sanitize_id_number(response_dict["mrz"], True)
+        except Exception as e:
+            response_dict["documentNumber"] = ""
+            print("Error extracting document number from mrz:", str(e))
+    else:
+        print("Warning: 'mrz' has not been validated because not found in the response dictionary.")
+
     # Sanitize Gender
     if "gender" in response_dict:
         try:
