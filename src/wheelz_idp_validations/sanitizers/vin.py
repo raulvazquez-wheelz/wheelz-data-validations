@@ -1,5 +1,5 @@
 import re
-from ..exceptions.id_exceptions import *
+from ..exceptions.vin_exceptions import *
 
 def calculate_check_digit(vin):
     # Mapeo de letras a valores para cálculo del VIN según la norma ISO 3779
