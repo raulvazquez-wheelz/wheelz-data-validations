@@ -13,7 +13,9 @@ def validate_dni(dni):
 # If we are looking to check only for the first match in a given text, we must use this function with
 # keep_search=False, otherwise, it must be keep_searching=True
 def sanitize_id_number(received_id, keep_searching=False):
-    # Primera expresión regular, simple y directa
+    # Lista de DNIs explícitamente inválido
+    not_valid = {"00000000T", "00000001R", "99999999R"}
+    # Primera expresión regular
     dni_patterns = [
         r"\b([0-9]{8}[A-Z])\b",  # Patrón básico
         r"([0-9]{8})\s*([A-Z])",  # Patrón con espacio opcional
@@ -23,6 +25,8 @@ def sanitize_id_number(received_id, keep_searching=False):
     for pattern in dni_patterns:
         for match in re.finditer(pattern, received_id):
             dni_candidate = match.group().replace('O', '0').replace(' ', '').replace('<', '')
+            if dni_candidate in not_valid:
+                raise InvalidIDException(received_id)
             if validate_dni(dni_candidate):
                 return dni_candidate
             elif not keep_searching:
