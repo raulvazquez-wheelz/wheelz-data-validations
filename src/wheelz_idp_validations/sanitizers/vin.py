@@ -1,4 +1,5 @@
 import re
+from ..exceptions.id_exceptions import *
 
 def calculate_check_digit(vin):
     # Mapeo de letras a valores para cálculo del VIN
@@ -17,10 +18,10 @@ def calculate_check_digit(vin):
     
     return check_digit
 
-def vin_sanitizer(text):
+def vin_sanitizer(received_vin):
     # Buscar VIN en el texto (17 caracteres, excluyendo I, O y Q)
     vin_pattern = r'[A-HJ-NPR-Z0-9]{17}'
-    matches = re.findall(vin_pattern, text.upper())
+    matches = re.findall(vin_pattern, received_vin.upper())
 
     for vin in matches:
         # Validar el dígito de verificación
@@ -28,11 +29,4 @@ def vin_sanitizer(text):
             return vin
 
     # Si no se encuentra ningún VIN válido, lanzar excepción
-    raise InvalidVINException("No valid VIN found in the text")
-
-"""
-# Ejemplo de uso:
-text = "El VIN del vehículo es 1HGCM82633A004352 y otro dato 2FMDK3GC4BBA28456."
-vin_found = vin_sanitizer(text)
-print(vin_found)
-"""
+    raise InvalidVinException(received_vin)
