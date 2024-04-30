@@ -1,48 +1,45 @@
 import re
-#from ..exceptions.date_exceptions import *
-
+from ..exceptions.cif_exceptions import *
 
 # Cif algorithm documentation https://www.mapa.gob.es/app/materialvegetal/docs/CIF.pdf
 def sanitize_cif(received_cif):
-    cif_regexp_default = "([ABCDEFGHQSKLM])(\d{7})(\d)"
-    # CIF Letters P and X may be on the end
-    cif_regexp_special = "(\d)(\d{7})([PX])"
+    cif_regexp_default = r"([ABCDEFGHQSKLM])(\d{7})(\d)"
+    cif_regexp_special = r"(\d)(\d{7})([PX])"
     special = False
 
-    # Get only the CIF number (try first default CIF Format)
+    # Intentar extraer el CIF usando el formato estándar
     match = re.search(cif_regexp_default, received_cif)
 
-    # If there is no match, try second format, if failed, throw exception
+    # Si no hay coincidencia, intentar con el formato especial
     if not match:
         match = re.search(cif_regexp_special, received_cif)
         special = True
         if not match:
-            print('hola')
-            #raise NoCIFMatchFoundException(received_cif)
+            raise NoCIFMatchFoundException(received_cif)
 
-    # Replace O (letter) for 0 (number) in case of errors
-    # We store digits and letter because we will use it later to validate CIF
+    # Preparar los componentes del CIF para validación
     digits = match.group(2).replace('O', '0')
     if not special:
         letter = match.group(1)
-        processed_cif = letter + digits + match.group(3).replace('O', '0')
+        control_digit = match.group(3).replace('O', '0')
     else:
         letter = match.group(3)
-        processed_cif = match.group(1).replace('O', '0') + digits + letter
+        control_digit = match.group(1).replace('O', '0')
 
-    # CIF Validation algorithm
-    # 1 - Add pair position digits from digits string to total_sum
-    # 2 - Multiply by two odd positions, then add their digits, finally add them to total+_sum
+    processed_cif = letter + digits + control_digit
+
+    # Validar el CIF según el algoritmo especificado
     total_sum = 0
-    for pos in range(0, len(digits)):
-        # Pair digits are in positions 1,3,5...
-        if pos % 2:
-            total_sum += int(digits[pos])
-        # Odd digits are in position 0,2,4...
+    for pos in range(len(digits)):
+        num = int(digits[pos])
+        if pos % 2 == 0:
+            total_sum += sum(int(x) for x in str(num * 2))
         else:
-            total_sum += sum(int(digit) for digit in str(digits[pos] * 2))
+            total_sum += num
 
-    print(total_sum)
+    # Calcular el dígito de control esperado
+    check_digit = str((10 - (total_sum % 10)) % 10)
+    if (check_digit != control_digit and not (control_digit == 'P' and check_digit == '0')):
+        raise InvalidCIFException(processed_cif)
 
-
-sanitize_cif("A58818501")
+    return processed_cif
