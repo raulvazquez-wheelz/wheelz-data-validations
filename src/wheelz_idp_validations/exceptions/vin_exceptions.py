@@ -1,6 +1,6 @@
 from ..sanitize_exception import SanitizeException
 
-class InvalidVINException(SanitizeException):
+class InvalidVinException(SanitizeException):
     def __init__(self, vin):
-        self.vin = vin
-        super().__init__(f"Invalid VIN: {vin}")
+        self.message = (f'No valid VIN found in text: {vin}')
+        super().__init__(self.message)
