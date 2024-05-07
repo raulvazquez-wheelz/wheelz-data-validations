@@ -2,66 +2,66 @@ from wheelz_idp_validations.sanitizers.plate import sanitize_plate
 from wheelz_idp_validations.sanitizers.vin import sanitize_vin
 from wheelz_idp_validations.sanitizers.date import sanitize_dates
 
-def sanitize_pcv2(table_json):
+def sanitize_pcv2(response_dict):
     # Sanitize número de matrícula. Campo A
-    if "A" in table_json:
+    if "A" in response_dict:
         try:
-            table_json["A"] = sanitize_plate(table_json["A"])
+            response_dict["A"] = sanitize_plate(response_dict["A"])
         except Exception as e:
-            table_json["A"] = ""
+            response_dict["A"] = ""
             print("Error sanitizing field A:", str(e))
     else:
         print("Warning: 'A' has not been validated because not found in the response dictionary.")
 
     # Sanitize número de bastidor o VIN. Campo E
-    if "E" in table_json:
+    if "E" in response_dict:
         try:
-            table_json["E"] = sanitize_vin(table_json["E"])
+            response_dict["E"] = sanitize_vin(response_dict["E"])
         except Exception as e:
-            table_json["E"] = ""
+            response_dict["E"] = ""
             print("Error sanitizing field E:", str(e))
     else:
         print("Warning: 'E' has not been validated because not found in the response dictionary.")
     
     # Sanitize field fecha de primera matriculación. Campo B
-    if "B" in table_json:
+    if "B" in response_dict:
         try:
-            table_json["B"] = sanitize_dates(table_json["B"])
+            response_dict["B"] = sanitize_dates(response_dict["B"])
         except Exception as e:
-            table_json["B"] = ""
+            response_dict["B"] = ""
             print("Error sanitizing field B:", str(e))
     else:
         print("Warning: 'B' has not been validated because not found in the response dictionary.")
 
     # Sanitize field periodo de validez del permiso. Campo H
-    if "H" in table_json:
+    if "H" in response_dict:
         try:
-            table_json["H"] = sanitize_dates(table_json["H"])
+            response_dict["H"] = sanitize_dates(response_dict["H"])
         except Exception as e:
-            table_json["H"] = ""
+            response_dict["H"] = ""
             print("Error sanitizing field H:", str(e))
     else:
         print("Warning: 'H' has not been validated because not found in the response dictionary.")
 
     # Sanitize field fecha de matriculación a la que se refiere el presente permiso. Campo I
-    if "I" in table_json:
+    if "I" in response_dict:
         try:
-            table_json["I"] = sanitize_dates(table_json["I"])
+            response_dict["I"] = sanitize_dates(response_dict["I"])
         except Exception as e:
-            table_json["I"] = ""
+            response_dict["I"] = ""
             print("Error sanitizing field I:", str(e))
     else:
         print("Warning: 'I' has not been validated because not found in the response dictionary.")
 
     # Sanitize field fecha de expedición. Campo I.1
-    if "I.1" in table_json:
+    if "I.1" in response_dict:
         try:
-            table_json["I.1"] = sanitize_dates(table_json["I.1"])
+            response_dict["I.1"] = sanitize_dates(response_dict["I.1"])
         except Exception as e:
-            table_json["I.1"] = ""
+            response_dict["I.1"] = ""
             print("Error sanitizing field I.1:", str(e))
     else:
         print("Warning: 'I.1' has not been validated because not found in the response dictionary.")
 
-    return table_json
+    return response_dict
 
