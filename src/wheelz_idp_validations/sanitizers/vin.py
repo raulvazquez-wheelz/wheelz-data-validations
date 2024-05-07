@@ -25,7 +25,7 @@ def calculate_check_digit(vin):
     
     return check_digit
 
-def vin_sanitizer(received_vin):
+def sanitize_vin(received_vin):
     # Buscar VIN en el texto (17 caracteres, excluyendo I, O y Q)
     vin_pattern = r'[A-HJ-NPR-Z0-9]{17}'
     matches = re.findall(vin_pattern, received_vin.upper())
