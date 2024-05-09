@@ -5,7 +5,7 @@ from ..exceptions.date_exceptions import *
 def sanitize_dates(received_date):
     # Comprobar si la entrada es una cadena vacía o solo contiene espacios
     if not received_date.strip():
-        raise EmptyDateException()
+        raise EmptyDateException(received_date)
 
     # Patrón para encontrar la fecha en distintos formatos comunes
     date_pattern = r'\b(\d{2})[\/\s-](\d{2})[\/\s-](\d{4})\b'
