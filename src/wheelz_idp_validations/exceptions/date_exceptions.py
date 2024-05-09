@@ -9,3 +9,4 @@ class EmptyDateException(SanitizeException):
     def __init__(self, found_date):
         self.message = ("No date provided or input is empty")
         super().__init__(self.message)
+
