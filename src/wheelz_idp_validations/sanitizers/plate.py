@@ -2,6 +2,8 @@ import re
 from ..exceptions.plate_exceptions import *
 
 def sanitize_plate(received_plate):
+    # Quitamos los posibles guiones que pueden existir en el texto
+    received_plate = re.sub(r'-', '', received_plate)
     # Definir patrones para los diferentes tipos de matrículas, incluyendo espacios opcionales donde sea necesario
     patterns = [
         r'\b\d{4}\s?[BCDFGHJKLMNPQRSTVWXYZ]{3}\b',  # Tipo 1: 4 números seguidos de 3 letras no vocales, con un espacio opcional
