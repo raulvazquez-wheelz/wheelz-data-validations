@@ -8,7 +8,7 @@ packages = ["src/wheelz_idp_validations"]
 
 [project]
 name = "wheelz_idp_validations"
-version = "2.2.3"
+version = "2.2.4"
 authors = [
   { name="Lluis" },
 ]
