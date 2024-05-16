@@ -53,15 +53,15 @@ def sanitize_pcv2(response_dict):
     else:
         print("Warning: 'I' has not been validated because not found in the response dictionary.")
 
-    # Sanitize field fecha de expedición. Campo I.1
-    if "I.1" in response_dict:
+    # Sanitize field fecha de expedición. Campo I1
+    if "I1" in response_dict:
         try:
-            response_dict["I.1"] = sanitize_dates(response_dict["I.1"], multiple = False)
+            response_dict["I1"] = sanitize_dates(response_dict["I1"], multiple = False)
         except Exception as e:
-            response_dict["I.1"] = ""
-            print("Error sanitizing field I.1:", str(e))
+            response_dict["I1"] = ""
+            print("Error sanitizing field I1:", str(e))
     else:
-        print("Warning: 'I.1' has not been validated because not found in the response dictionary.")
+        print("Warning: 'I1' has not been validated because not found in the response dictionary.")
 
     return response_dict
 
