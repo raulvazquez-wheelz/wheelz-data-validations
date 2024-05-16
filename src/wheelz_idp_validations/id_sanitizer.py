@@ -36,7 +36,7 @@ def sanitize_id(response_dict):
     # Sanitize Birth Date
     if "birthDate" in response_dict:
         try:
-            response_dict["birthDate"] = sanitize_dates(response_dict["birthDate"])
+            response_dict["birthDate"] = sanitize_dates(response_dict["birthDate"], multiple = False)
         except Exception as e:
             response_dict["birthDate"] = ""
             print("Error sanitizing birth date:", str(e))
@@ -46,7 +46,7 @@ def sanitize_id(response_dict):
     # Sanitize Expiration Date
     if "expirationDate" in response_dict:
         try:
-            response_dict["expirationDate"] = sanitize_dates(response_dict["expirationDate"])
+            response_dict["expirationDate"] = sanitize_dates(response_dict["expirationDate"], multiple = False)
         except Exception as e:
             response_dict["expirationDate"] = ""
             print("Error sanitizing expiration date:", str(e))
